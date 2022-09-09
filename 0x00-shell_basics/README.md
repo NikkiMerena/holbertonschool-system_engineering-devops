@@ -1,1 +1,1 @@
-shell basics
+readme ls command
