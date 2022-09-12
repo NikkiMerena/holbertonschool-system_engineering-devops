@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $PATH ./3
+$ find . -type d | wc -l
