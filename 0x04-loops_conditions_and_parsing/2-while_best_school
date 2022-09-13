@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# displays "Best School 10 times"
+
+while "COUNTER"
+	do
+		echo "best School"
+done
