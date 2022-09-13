@@ -2,5 +2,5 @@
 # displays "Best School 10 times"
 while "COUNTER"
 	do
-		echo "best School"
+		echo "Best School"
 done
