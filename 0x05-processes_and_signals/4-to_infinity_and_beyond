@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Bash script that displays To Infinity and beyond indefinitely.
+while true
+do
+printf "To infinity and beyond\n"
+done
