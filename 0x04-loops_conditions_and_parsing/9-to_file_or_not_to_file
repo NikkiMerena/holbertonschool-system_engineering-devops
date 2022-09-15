@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Displays inforation about the file school
 file="school"
 
 if [ -e "$file" ]
