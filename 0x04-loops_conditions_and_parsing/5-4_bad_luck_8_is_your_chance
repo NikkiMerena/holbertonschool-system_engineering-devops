@@ -13,5 +13,5 @@ echo "good luck"
 else
 echo "Best School"
 fi
-export i+=1
+(( i++ ))
 done
