@@ -3,3 +3,9 @@ Host 5527-web-01
   User ubuntu
   Identityfile ~/.ssh/school
   IdentitiesOnly yes
+
+Host 5527-web-02
+  HostName 15.236.179.140
+  User ubuntu
+  Identityfile ~/.ssh/school
+  IdentitiesOnly yes
