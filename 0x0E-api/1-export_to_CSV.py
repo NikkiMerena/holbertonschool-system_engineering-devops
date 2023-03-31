@@ -5,11 +5,10 @@ import requests
 import sys
 
 
-def get_employee_todo():
+def employee_todo_to_csv():
     """This method gathers employee to do information from an API
-    See README for display format
+    Employee task information is sent to a CSV file
     """
-    num_complete = 0
     employee_id = sys.argv[1]
     url = "https://jsonplaceholder.typicode.com/"
 
@@ -19,32 +18,12 @@ def get_employee_todo():
     employee_name = employee_name.json()
     employee_todo = employee_todo.json()
 
-    # print("employee name response", end="")
-    # print(employee_name)
-    # print("todo response", end="")
-    # print(employee_todo)
-
-    completed = []
-
-    for task in employee_todo:
-        if task.get("completed") is True:
-            num_complete += 1
-            completed.append(task)
-
-    name = employee_name.get("name")
-    a = num_complete
-    b = len(employee_todo)
-    print("Employee {} is done with tasks({}/{}):".format(name, a, b))
-
-    # Export to CSV
-    with open(f"{employee_id}.csv", "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter=",")
-        writer.writerow(["USER_ID", "USERNAME",
-                        "TASK_COMPLETED_STATUS", "TASK_TITLE"])
-        for task in completed:
-            writer.writerow([employee_id, name,
-                            task.get("completed"), task.get("title")])
-
+    with open('{}.csv'.format(employee_id), 'w', encoding='UTF8') as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        for task in employee_todo:
+            data = [employee_id, employee_name.get("username"),
+                    task.get("completed"), task.get("title")]
+            writer.writerow(data)
 
 if __name__ == "__main__":
-    get_employee_todo()
+    employee_todo_to_csv()
