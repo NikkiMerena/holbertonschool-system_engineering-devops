@@ -1,41 +1,43 @@
 #!/usr/bin/python3
-
-"""
-This module fetches information about an employee's TODO list progress based on the given employee ID.
-"""
-
+"""Module to gather employee to do information from an API"""
 import requests
 import sys
 
 
-def get_todo_progress(employee_id):
+def get_employee_todo():
+    """This method gathers employee to do information from an API
+    See README for display format
     """
-    Fetches information about an employee's TODO list progress based on the given employee ID.
-    """
-    # Fetching the employee's details
-    url_employee = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(url_employee)
-    employee_details = response.json()
+    num_complete = 0
+    employee_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetching the employee's todo list
-    url_todos = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
-    response = requests.get(url_todos)
-    todo_list = response.json()
+    employee_name = requests.get(url + 'users/{}'.format(employee_id))
+    employee_todo = requests.get(url + 'todos?userId={}'.format(employee_id))
 
-    # Calculating the employee's todo progress
-    total_tasks = len(todo_list)
-    completed_tasks = sum(1 for task in todo_list if task.get("completed"))
+    employee_name = employee_name.json()
+    employee_todo = employee_todo.json()
 
-    # Displaying the progress report
-    employee_name = employee_details.get("name", "Unknown Employee")
-    progress_msg = f"Employee {employee_name} is done with tasks ({completed_tasks}/{total_tasks}):"
-    print(progress_msg)
-    for task in todo_list:
-        if task.get("completed"):
-            task_title = f"\t- {task['title']}"
-            print(task_title)
+    # print("employee name response", end="")
+    # print(employee_name)
+    # print("todo response", end="")
+    # print(employee_todo)
+
+    completed = []
+
+    for task in employee_todo:
+        if task.get("completed") is True:
+            num_complete += 1
+            completed.append(task.get("title"))
+    # print(num_complete)
+    # print(len(employee_todo))
+    name = employee_name.get("name")
+    a = num_complete
+    b = len(employee_todo)
+    print("Employee {} is done with tasks({}/{}):".format(name, a, b))
+    for task in completed:
+        print("\t {}".format(task))
 
 
 if __name__ == "__main__":
-    employee_id = sys.argv[1]
-    get_todo_progress(employee_id)
+    get_employee_todo()
